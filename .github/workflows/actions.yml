@@ -1,8 +1,6 @@
 name: run main.py
 
-on:
-  schedule:
-    - cron: "* * * * *" # All the time!
+on: [push]
 
 jobs:
   build:
