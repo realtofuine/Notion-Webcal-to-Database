@@ -123,6 +123,19 @@ def getmatchingindex(j):
 for i in range(len(nameList)):
     if nameList[i] not in notionNameList:
         print("New event found: " + nameList[i])
+        if("AP Physics C" in nameList[i]):
+            course = "AP Phy C"
+        elif("AP United States History" in nameList[i]):
+            course = "APUSH"
+        elif("Advanced Topics in Mathematics" in nameList[i]):
+            course = "AT"
+        elif("AP Chemistry" in nameList[i]):
+            course = "AP Chem"
+        elif("English 12" in nameList[i]):
+            course = "Eng"
+        elif("AP Computer Science A" in nameList[i]):
+            course = "APCSA"
+
         newPage = notion.pages.create(
             parent={
                 "database_id": "437cd227b8b946d485abdf2af1cbef3e"
@@ -145,6 +158,11 @@ for i in range(len(nameList)):
                 "Due": {
                     "date": {
                         "start": dueList[i]
+                    }
+                },
+                "Class": {
+                    "select": {
+                        "name": course
                     }
                 }
             }
