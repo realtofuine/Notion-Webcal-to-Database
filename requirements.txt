@@ -1,0 +1,2 @@
+notion-client==2.0.0
+icalendar==5.0.7
