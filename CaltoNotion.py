@@ -125,16 +125,25 @@ for i in range(len(nameList)):
         print("New event found: " + nameList[i])
         if("AP Physics C" in nameList[i]):
             course = "AP Phy C"
+            print(course)
         elif("AP United States History" in nameList[i]):
             course = "APUSH"
+            print(course)
         elif("Advanced Topics in Mathematics" in nameList[i]):
             course = "AT"
+            print(course)
         elif("AP Chemistry" in nameList[i]):
             course = "AP Chem"
+            print(course)
         elif("English 12" in nameList[i]):
             course = "Eng"
+            print(course)
         elif("AP Computer Science A" in nameList[i]):
             course = "APCSA"
+            print(course)
+        else:
+            course = "None"
+            print(course)
 
         newPage = notion.pages.create(
             parent={
