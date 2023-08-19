@@ -218,3 +218,19 @@ for i in range(len(notionNameList)):
             )
     else:
         print("No events removed")
+
+# Add current date and time to database title
+my_page = notion.databases.update(
+    **{
+        "database_id": "437cd227b8b946d485abdf2af1cbef3e",
+        "title": [
+            {
+                        "text": {
+                            "content": "Assignments as of " + str(datetime.now(pytz.timezone('America/Chicago')).strftime("%m/%d, %I:%M %p"))
+                        }
+            }
+        ]
+                
+            }
+
+)
