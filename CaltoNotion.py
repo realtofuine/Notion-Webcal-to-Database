@@ -92,6 +92,11 @@ for name in nameList:
         print(course)
         courseList.append(course)
 
+#if name is the same as another name, add number to end
+for i in range(len(editedNameList)):
+    if editedNameList.count(editedNameList[i]) > 1:
+        editedNameList[i] = editedNameList[i] + " " + str(editedNameList.count(editedNameList[i]))
+
 # Read Notion data and save name field to list
 my_page = notion.databases.query(
     **{
