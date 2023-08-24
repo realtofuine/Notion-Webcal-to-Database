@@ -64,4 +64,5 @@ jobs:
         env:
           NOTION_TOKEN: ${{secrets.NOTION_TOKEN}}
           WEB_CAL: ${{secrets.WEB_CAL}}
+          ACCOUNT_PASSWORD: ${{secrets.ACCOUNT_PASSWORD}}
         run: python importdetails.py
