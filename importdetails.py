@@ -124,8 +124,35 @@ for i in range(len(notionNameList)):
             print(notionNameList[i])
             print(blackbaudNameList[j])
             #check if details are already in Notion
+            
+            #if page is empty
             if not notion.blocks.retrieve(block_id = notionIDList[i])["has_children"]:
                 print("Details not in Notion")
+                notion.blocks.children.append(
+                    block_id = notionIDList[i],
+                    children = [
+                        {
+                            "object": "block",
+                            "type": "paragraph",
+                            "paragraph": {
+                            "rich_text": [
+                                {
+                                "type": "text",
+                                "text": {
+                                    "content": blackbaudDetailsList[j]
+                                }
+                                }
+                            ]
+                            }
+                        }
+                    ]
+                )
+            else:
+                my_page = notion.blocks.children.list(block_id= notionIDList[i]).get("results")
+                blockID = my_page[0]["id"]
+                
+                print("Details updated")
+                notion.blocks.delete(block_id = blockID)
                 notion.blocks.children.append(
                     block_id = notionIDList[i],
                     children = [
