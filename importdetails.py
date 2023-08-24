@@ -1,12 +1,8 @@
 import os
 import time
 
-import chromedriver_autoinstaller
 from notion_client import Client
-from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -57,28 +53,7 @@ for result in my_page:
 
 
 # Read Blackbaud data
-display = Display(visible=0, size=(800, 800))  
-display.start()
-chromedriver_autoinstaller.install()
-chrome_options = webdriver.ChromeOptions()
-options = [
-  # Define window size here
-   #"--window-size=1200,1200",
-    #"--ignore-certificate-errors"
- 
-    "--headless",
-    #"--disable-gpu",
-    #"--window-size=1920,1200",
-    #"--ignore-certificate-errors",
-    #"--disable-extensions",
-    #"--no-sandbox",
-    #"--disable-dev-shm-usage",
-    #'--remote-debugging-port=9222'
-]
-for option in options:
-    chrome_options.add_argument(option)
-
-driver = webdriver.Chrome(options = chrome_options)
+driver = webdriver.Chrome()
 actions = ActionChains(driver)
 
 driver.get("https://smtexas.myschoolapp.com/app/student#login")
