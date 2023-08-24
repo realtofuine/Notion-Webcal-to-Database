@@ -1,2 +1,5 @@
 notion-client==2.0.0
 icalendar==5.0.7
+PyVirtualDisplay==3.0
+selenium==4.11.2
+chromedriver-autoinstaller==0.6.2
