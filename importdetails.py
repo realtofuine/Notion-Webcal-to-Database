@@ -16,12 +16,14 @@ blackbaudDetailsList = []
 notionNameList = []
 notionIDList = []
 notionIconList = []
+gradeList = []
 
 blackbaudNameList.clear()
 blackbaudDetailsList.clear()
 notionNameList.clear()
 notionIDList.clear()
 notionIconList.clear()
+gradeList.clear()
 
 # Read Notion data and save name field to list
 my_page = notion.databases.query(
@@ -110,6 +112,8 @@ for i in range(len(assignment)):
             fullDetails = fullDetails + files[j].get_attribute("href") + "\n"
     print(fullDetails)
     blackbaudDetailsList.append(fullDetails)
+    grade = driver.find_element(By.XPATH, "//span[contains(@class,'assignment-detail-status-label')]")
+    gradeList.append(grade.text[8:len(grade.text)])
     driver.back()
     time.sleep(2)
     assignment = driver.find_elements(By.XPATH, "//a[contains(@href,'assignmentdetail')]")
@@ -173,6 +177,23 @@ for i in range(len(notionNameList)):
                             }
                         }
                     ]
+                )
+            #add grade to Notion if available
+            if(gradeList[j] != "d" and gradeList[j] != ""): #check if grade is available
+                notion.pages.update(
+                    page_id = notionIDList[i],
+                    properties={
+                        "Grade": {
+                            "rich_text": [
+                                {
+                                "type": "text",
+                                "text": {
+                                    "content": gradeList[j]
+                                }
+                                }
+                            ]
+                        }
+                    }
                 )
 
 # Add current date and time to database title
