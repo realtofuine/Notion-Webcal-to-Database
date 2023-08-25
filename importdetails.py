@@ -88,7 +88,7 @@ assignment = driver.find_elements(By.XPATH, "//a[contains(@href,'assignmentdetai
 for i in range(len(assignment)):
     fullDetails = ""
     print(assignment[i].text)
-    blackbaudNameList.append(assignment[i].text)
+    blackbaudNameList.append((assignment[i].text).strip())
     assignment[i].click()
     time.sleep(2)
     details = driver.find_element(By.XPATH, "//div[contains(@style,'margin-top:10px')]")
