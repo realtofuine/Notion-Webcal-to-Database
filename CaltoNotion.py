@@ -1,3 +1,4 @@
+import html
 import os
 import time
 from datetime import datetime, timedelta
@@ -47,7 +48,7 @@ for event in cal.walk('vevent'):
     print(str(datestart))
     print(str(dateend))
     print(summary[2:int(len(str(summery)))-1])
-    nameList.append(summary[2:int(len(str(summery)))-1])
+    nameList.append(html.unescape(summary[2:int(len(str(summery)))-1]))
     assignList.append(str(datestart))
     if isinstance(dateend, datetime): #If dateend is a datetime object keep the time
         dueList.append(str((dateend)))
