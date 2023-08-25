@@ -1,6 +1,8 @@
 import os
 import time
+from datetime import datetime, timedelta
 
+import pytz
 from notion_client import Client
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -97,15 +99,15 @@ for i in range(len(assignment)):
     downloads = driver.find_elements(By.XPATH, "//div[contains(@class,'well')]")
     if(len(downloads) > 0):
         print("Downloads:")
-        fullDetails = fullDetails + "Downloads:\n"
+        fullDetails = fullDetails + "\n\nDownloads:\n"
         files = driver.find_elements(By.XPATH, "//a[contains(@href,'/ftpimages')]")
         for j in range(len(files)):
             print(files[j].get_attribute("href"))
-            fullDetails = fullDetails + files[j].get_attribute("href")
+            fullDetails = fullDetails + files[j].get_attribute("href") + "\n"
         files = driver.find_elements(By.XPATH, "//div[contains(@class,'well')]//a[contains(@href,'http')]")
         for j in range(len(files)):
             print(files[j].get_attribute("href"))
-            fullDetails = fullDetails + files[j].get_attribute("href")
+            fullDetails = fullDetails + files[j].get_attribute("href") + "\n"
     print(fullDetails)
     blackbaudDetailsList.append(fullDetails)
     driver.back()
@@ -172,3 +174,19 @@ for i in range(len(notionNameList)):
                         }
                     ]
                 )
+
+# Add current date and time to database title
+my_page = notion.databases.update(
+    **{
+        "database_id": "437cd227b8b946d485abdf2af1cbef3e",
+        "title": [
+            {
+                        "text": {
+                            "content": "Assignments as of " + str(datetime.now(pytz.timezone('America/Chicago')).strftime("%m/%d, %I:%M %p"))
+                        }
+            }
+        ]
+                
+            }
+
+)
