@@ -52,7 +52,7 @@ for result in my_page:
     print(str(result['properties']['Due']['date']['start']))
     print(str(result['properties']['Assign']['date']['start']))
     print(str(result['id']))
-    notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content'].replace("\r", "").replace("\n", "")))
+    notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content']))
     notionIDList.append(str(result['id']))
 
 
@@ -92,7 +92,7 @@ assignment = driver.find_elements(By.XPATH, "//a[contains(@href,'assignmentdetai
 for i in range(len(assignment)):
     fullDetails = ""
     print(assignment[i].text)
-    blackbaudNameList.append((assignment[i].text).strip())
+    blackbaudNameList.append((assignment[i].text).strip().replace("\r", "").replace("\n", ""))
     assignment[i].click()
     time.sleep(2)
     details = driver.find_element(By.XPATH, "//div[contains(@style,'margin-top:10px')]")
