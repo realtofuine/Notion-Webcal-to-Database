@@ -52,7 +52,7 @@ for result in my_page:
     print(str(result['properties']['Due']['date']['start']))
     print(str(result['properties']['Assign']['date']['start']))
     print(str(result['id']))
-    notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content']))
+    notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content'].replace("\r", "").replace("\n", "")))
     notionIDList.append(str(result['id']))
 
 
@@ -78,7 +78,7 @@ actions.perform()
 time.sleep(2)
 actions.send_keys(Keys.ENTER)
 actions.perform()
-time.sleep(5) #now logged in
+time.sleep(10) #now logged in
 assignmentCenter = driver.find_element(By.ID, "assignment-center-btn")
 assignmentCenter.click()
 time.sleep(2)
