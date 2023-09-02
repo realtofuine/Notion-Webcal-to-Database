@@ -8,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 
@@ -77,10 +79,8 @@ actions.send_keys(Keys.ENTER)
 actions.perform()
 time.sleep(2)
 actions.send_keys(Keys.ENTER)
-actions.perform()
-time.sleep(10) #now logged in
-assignmentCenter = driver.find_element(By.ID, "assignment-center-btn")
-assignmentCenter.click()
+actions.perform() #now logged in
+WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "assignment-center-btn"))).click()
 time.sleep(2)
 monthView = driver.find_element(By.ID, "month-view")
 monthView.click()
