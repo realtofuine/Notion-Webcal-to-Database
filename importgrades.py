@@ -190,3 +190,17 @@ for subject in classList:
 
     print("done")
     driver.quit()
+
+# update last updated time
+notion.blocks.update(
+    block_id = "8008a2d9b0514d95b0ef77e7ed6c39d9",
+    heading_2 = {
+    "rich_text": [
+        {
+            "text": {
+                "content": "Last updated at " + str(datetime.now(pytz.timezone('America/Chicago')).strftime("%m/%d, %I:%M %p"))
+            },
+        }
+    ]
+}
+)
