@@ -80,7 +80,11 @@ for subject in classList:
         # notionIDList.append(str(result['id']))
 
     # Read Blackbaud data
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--window-size=1920,1080')
+    options.add_argument('--start-maximized')
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
     actions = ActionChains(driver)
 
     driver.get("https://smtexas.myschoolapp.com/app/student#login")
