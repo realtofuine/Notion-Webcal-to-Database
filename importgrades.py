@@ -72,7 +72,6 @@ for subject in classList:
     ).get("results")
 
     for result in my_page:
-        print(result)
         print(str(result['properties']['Name']['title'][0]['text']['content']))
         print(str(result['properties']['Points']['rich_text'][0]['text']['content']))
         notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content'].replace("\r", "").replace("\n", "")))
