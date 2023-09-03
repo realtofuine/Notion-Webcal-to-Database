@@ -91,7 +91,7 @@ time.sleep(2)
 assignment = driver.find_elements(By.XPATH, "//a[contains(@href,'assignmentdetail')]")
 for i in range(len(assignment)):
     fullDetails = ""
-    print(assignment[i].text.replace("\r", " ").replace("\n", " "))
+    # print(assignment[i].text.replace("\r", " ").replace("\n", " "))
     blackbaudNameList.append((assignment[i].text).strip().replace("\r", " ").replace("\n", " "))
     assignment[i].click()
     time.sleep(2)
