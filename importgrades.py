@@ -87,7 +87,7 @@ for subject in classList:
     actions = ActionChains(driver)
 
     driver.get("https://smtexas.myschoolapp.com/app/student#login")
-    time.sleep(2)
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "Username"))).click()
     email = driver.find_element(By.ID, "Username")
     email.send_keys("24rair@smtexas.org")
     next = driver.find_element(By.ID, "nextBtn")
