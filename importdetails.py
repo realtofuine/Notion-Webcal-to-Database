@@ -95,7 +95,7 @@ for i in range(len(assignment)):
     # print(assignment[i].text.replace("\r", " ").replace("\n", " "))
     blackbaudNameList.append((assignment[i].text).strip().replace("\r", " ").replace("\n", " "))
     assignment[i].click()
-    time.sleep(2)
+    time.sleep(5)
     details = driver.find_element(By.XPATH, "//div[contains(@style,'margin-top:10px')]")
     print(details.text)
     fullDetails = fullDetails + details.text
