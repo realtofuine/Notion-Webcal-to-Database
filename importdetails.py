@@ -80,7 +80,7 @@ actions.perform()
 time.sleep(2)
 actions.send_keys(Keys.ENTER)
 actions.perform() #now logged in
-WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "assignment-center-btn"))).click()
+WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.ID, "assignment-center-btn"))).click()
 time.sleep(2)
 monthView = driver.find_element(By.ID, "month-view")
 monthView.click()
