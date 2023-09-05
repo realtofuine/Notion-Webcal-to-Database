@@ -13,8 +13,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 
-classList = ["adv topics", "ap chem", "comp sci", "phy c", "apush", "eng war"]
-
+classList = ["ap chem", "comp sci", "phy c", "apush", "eng war"]
+# "adv topics"
 for subject in classList:
     if(subject == "adv topics"):
         notionID = "5e635587dd8a4687a7c5b4f51bc55962"
