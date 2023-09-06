@@ -89,6 +89,7 @@ due.click()
 time.sleep(2)
 # get all assignments
 assignment = driver.find_elements(By.XPATH, "//a[contains(@href,'assignmentdetail')]")
+print(len(assignment))
 i=0
 for i in range(len(assignment)):
     fullDetails = ""
