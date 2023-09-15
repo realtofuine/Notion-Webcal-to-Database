@@ -40,6 +40,7 @@ for subject in classList:
     notionNameList = []
     notionGradeList = []
     notionNotesList = []
+    notionIDList = []
 
     blackbaudNameList.clear()
     blackbaudGradeList.clear()
@@ -47,6 +48,7 @@ for subject in classList:
     notionNameList.clear()
     notionGradeList.clear()
     notionNotesList.clear()
+    notionIDList.clear()
 
     # Read Notion data and save name field to list
     my_page = notion.databases.query(
@@ -75,7 +77,7 @@ for subject in classList:
         print(str(result['properties']['Points']['rich_text'][0]['text']['content']))
         notionNameList.append(str(result['properties']['Name']['title'][0]['text']['content'].replace("\r", "").replace("\n", "")))
         notionGradeList.append(str(result['properties']['Points']['rich_text'][0]['text']['content']))
-        # notionIDList.append(str(result['id']))
+        notionIDList.append(str(result['id']))
 
     # Read Blackbaud data
     options = webdriver.ChromeOptions()
@@ -170,7 +172,22 @@ for subject in classList:
                     }
                 }
             )
-
+        elif blackbaudGradeList[i] != notionGradeList[i]: #if grade changed
+            print("Grade changed")
+            notion.pages.update(
+                page_id = notionIDList[i],
+                properties={
+                    "Points": {
+                        "rich_text": [
+                            {
+                                "text": {
+                                    "content": blackbaudGradeList[i]
+                                }
+                            }
+                        ]
+                    }
+                }
+            )
     my_page = notion.databases.update(
     **{
         "database_id": notionID,
