@@ -172,22 +172,25 @@ for subject in classList:
                     }
                 }
             )
-        elif blackbaudGradeList[i] != notionGradeList[i]: #if grade changed
-            print("Grade changed")
-            notion.pages.update(
-                page_id = notionIDList[i],
-                properties={
-                    "Points": {
-                        "rich_text": [
-                            {
-                                "text": {
-                                    "content": blackbaudGradeList[i]
+        else: #if grade changed
+            #get index of notionNameList that matches blackbaudNameList
+            index = notionNameList.index(blackbaudNameList[i])
+            if blackbaudGradeList[i] != notionGradeList[index]:
+                print("Grade changed")
+                notion.pages.update(
+                    page_id = notionIDList[index],
+                    properties={
+                        "Points": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": blackbaudGradeList[i]
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
-                }
-            )
+                )
     my_page = notion.databases.update(
     **{
         "database_id": notionID,
