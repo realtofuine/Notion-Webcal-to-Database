@@ -124,6 +124,11 @@ for i in range(len(assignment)):
 time.sleep(10)
 driver.quit()
 
+#if name is the same as another name, add number to end
+for i in range(len(blackbaudNameList)):
+    if blackbaudNameList.count(blackbaudNameList[i]) > 1:
+        blackbaudNameList[i] = blackbaudNameList[i] + " " + str(blackbaudNameList.count(blackbaudNameList[i]))
+
 #Add the assignment details to the corresponding Notion page
 for i in range(len(notionNameList)):
     for j in range(len(blackbaudNameList)):
