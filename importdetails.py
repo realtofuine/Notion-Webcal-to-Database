@@ -126,8 +126,8 @@ driver.quit()
 
 #if name is the same as another name, add number to end
 for i in range(len(blackbaudNameList)):
-    if blackbaudNameList.count(blackbaudNameList[i]) > 1:
-        blackbaudNameList[i] = blackbaudNameList[i] + " " + str(blackbaudNameList.count(blackbaudNameList[i]))
+    if blackbaudNameList.count(blackbaudNameList[len(blackbaudNameList) - i - 1]) > 1:
+        blackbaudNameList[len(blackbaudNameList) - i - 1] = blackbaudNameList[len(blackbaudNameList) - i - 1] + " " + str(blackbaudNameList.count(blackbaudNameList[len(blackbaudNameList) - i - 1]))
 
 #Add the assignment details to the corresponding Notion page
 for i in range(len(notionNameList)):
