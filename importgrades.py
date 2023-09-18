@@ -133,6 +133,11 @@ for subject in classList:
         blackbaudNotesList.append(notes.text)
     netGrade = driver.find_element(By.XPATH, "//div[contains(@class,'text-align-center')]//h1").text
     print(netGrade)
+
+    #if name is the same as another name, add number to end
+    for i in range(len(blackbaudNameList)):
+        if blackbaudNameList.count(blackbaudNameList[len(blackbaudNameList) - i - 1]) > 1:
+            blackbaudNameList[len(blackbaudNameList) - i - 1] = blackbaudNameList[len(blackbaudNameList) - i - 1] + " " + str(blackbaudNameList.count(blackbaudNameList[len(blackbaudNameList) - i - 1]))
     
     #compare lists and update Notion
     for i in range(len(blackbaudNameList)):
