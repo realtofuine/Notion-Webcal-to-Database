@@ -160,6 +160,7 @@ for i in range(len(notionNameList)):
                         }
                     ]
                 )
+                time.sleep(0.5)
             else:
                 my_page = notion.blocks.children.list(block_id= notionIDList[i]).get("results")
                 blockID = my_page[0]["id"]
@@ -185,6 +186,7 @@ for i in range(len(notionNameList)):
                         }
                     ]
                 )
+                time.sleep(0.5)
             #add grade to Notion if available
             if(gradeList[j] != "d" and gradeList[j] != ""): #check if grade is available
                 notion.pages.update(
@@ -202,6 +204,7 @@ for i in range(len(notionNameList)):
                         }
                     }
                 )
+                time.sleep(0.5)
 
 # Add current date and time to database title
 my_page = notion.databases.update(
