@@ -51,26 +51,38 @@ for subject in classList:
     notionIDList.clear()
 
     # Read Notion data and save name field to list
-    my_page = notion.databases.query(
-        **{
-            "database_id": notionID,
-            "filter": {
-                "and": [
-                {"property": "Name",
-                "rich_text": {
-                        "contains": "",
-                        "is_not_empty": True
-                    } },
-                {"property": "Points",
-                "rich_text": {
-                    "contains": "",
-                    "is_not_empty": True
+    
+    retries2 = 1
+    success2 = False
+    while not success2:
+        try:
+            my_page = notion.databases.query(
+                **{
+                    "database_id": notionID,
+                    "filter": {
+                        "and": [
+                        {"property": "Name",
+                        "rich_text": {
+                                "contains": "",
+                                "is_not_empty": True
+                            } },
+                        {"property": "Points",
+                        "rich_text": {
+                            "contains": "",
+                            "is_not_empty": True
+                        }
+                        }
+                        ]
+                    }
                 }
-                }
-                ]
-            }
-        }
-    ).get("results")
+            ).get("results")
+            success2 = True
+        except:
+            wait2 = retries2 * 30
+            print('Error! Waiting %s secs and re-trying...' % wait2)
+            time.sleep(wait2)
+            retries2 += 1
+    
 
     for result in my_page:
         print(str(result['properties']['Name']['title'][0]['text']['content']))
