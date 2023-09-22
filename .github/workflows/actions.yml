@@ -70,7 +70,7 @@ jobs:
 
   copygrades:
     runs-on: self-hosted
-    needs: [copyassignments, copydescriptions]
+    # needs: [copyassignments, copydescriptions]
     timeout-minutes: 30
 
     steps:
