@@ -139,7 +139,18 @@ for i in range(len(notionNameList)):
             #check if details are already in Notion
             
             #if page is empty
-            if not notion.blocks.retrieve(block_id = notionIDList[i])["has_children"]:
+            retries = 1
+            success = False
+            while not success:
+                try:
+                    retrieve = notion.blocks.retrieve(block_id = notionIDList[i])["has_children"]
+                    success = True
+                except:
+                    wait = retries * 30
+                    print('Error! Waiting %s secs and re-trying...' % wait)
+                    time.sleep(wait)
+                    retries += 1
+            if not retrieve:
                 print("Details not in Notion")
                 notion.blocks.children.append(
                     block_id = notionIDList[i],
@@ -160,51 +171,91 @@ for i in range(len(notionNameList)):
                         }
                     ]
                 )
-                time.sleep(0.5)
+                
             else:
-                my_page = notion.blocks.children.list(block_id= notionIDList[i]).get("results")
-                blockID = my_page[0]["id"]
+                retries2 = 1
+                success2 = False
+                while not success2:
+                    try:
+                        my_page = notion.blocks.children.list(block_id= notionIDList[i]).get("results")
+                        blockID = my_page[0]["id"]
+                        success2 = True
+                    except:
+                        wait2 = retries2 * 30
+                        print('Error! Waiting %s secs and re-trying...' % wait2)
+                        time.sleep(wait2)
+                        retries2 += 1
                 
                 print("Details updated")
-                notion.blocks.delete(block_id = blockID)
-                notion.blocks.children.append(
-                    block_id = notionIDList[i],
-                    children = [
-                        {
-                            "object": "block",
-                            "type": "paragraph",
-                            "paragraph": {
-                            "rich_text": [
+                retries4 = 1
+                success4 = False
+                while not success4:
+                    try:
+                        notion.blocks.delete(block_id = blockID)
+                        success4 = True
+                    except:
+                        wait4 = retries4 * 30
+                        print('Error! Waiting %s secs and re-trying...' % wait4)
+                        time.sleep(wait4)
+                        retries4 += 1
+                retries3 = 1
+                success3 = False
+                while not success3:
+                    try:
+                        notion.blocks.children.append(
+                            block_id = notionIDList[i],
+                            children = [
                                 {
-                                "type": "text",
-                                "text": {
-                                    "content": blackbaudDetailsList[j]
-                                }
+                                    "object": "block",
+                                    "type": "paragraph",
+                                    "paragraph": {
+                                    "rich_text": [
+                                        {
+                                        "type": "text",
+                                        "text": {
+                                            "content": blackbaudDetailsList[j]
+                                        }
+                                        }
+                                    ]
+                                    }
                                 }
                             ]
-                            }
-                        }
-                    ]
-                )
-                time.sleep(0.5)
+                        )
+                        success3 = True
+                    except:
+                        wait3 = retries3 * 30
+                        print('Error! Waiting %s secs and re-trying...' % wait3)
+                        time.sleep(wait3)
+                        retries3 += 1
+                
             #add grade to Notion if available
             if(gradeList[j] != "d" and gradeList[j] != ""): #check if grade is available
-                notion.pages.update(
-                    page_id = notionIDList[i],
-                    properties={
-                        "Grade": {
-                            "rich_text": [
-                                {
-                                "type": "text",
-                                "text": {
-                                    "content": gradeList[j]
+                retries3 = 1
+                success3 = False
+                while not success3:
+                    try:
+                        notion.pages.update(
+                            page_id = notionIDList[i],
+                            properties={
+                                "Grade": {
+                                    "rich_text": [
+                                        {
+                                        "type": "text",
+                                        "text": {
+                                            "content": gradeList[j]
+                                        }
+                                        }
+                                    ]
                                 }
-                                }
-                            ]
-                        }
-                    }
-                )
-                time.sleep(0.5)
+                            }
+                        )
+                        success3 = True
+                    except:
+                        wait3 = retries3 * 30
+                        print('Error! Waiting %s secs and re-trying...' % wait3)
+                        time.sleep(wait3)
+                        retries3 += 1
+                
 
 # Add current date and time to database title
 my_page = notion.databases.update(
