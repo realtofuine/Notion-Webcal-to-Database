@@ -152,25 +152,36 @@ for i in range(len(notionNameList)):
                     retries += 1
             if not retrieve:
                 print("Details not in Notion")
-                notion.blocks.children.append(
-                    block_id = notionIDList[i],
-                    children = [
-                        {
-                            "object": "block",
-                            "type": "paragraph",
-                            "paragraph": {
-                            "rich_text": [
-                                {
-                                "type": "text",
-                                "text": {
-                                    "content": blackbaudDetailsList[j]
+                retries = 1
+                success = False
+                while not success:
+                    try:
+                        notion.blocks.children.append(
+                        block_id = notionIDList[i],
+                        children = [
+                            {
+                                "object": "block",
+                                "type": "paragraph",
+                                "paragraph": {
+                                "rich_text": [
+                                    {
+                                    "type": "text",
+                                    "text": {
+                                        "content": blackbaudDetailsList[j]
+                                    }
+                                    }
+                                ]
                                 }
-                                }
-                            ]
                             }
-                        }
-                    ]
-                )
+                        ]
+                    )
+                        success = True
+                    except:
+                        wait = retries * 30
+                        print('Error! Waiting %s secs and re-trying...' % wait)
+                        time.sleep(wait)
+                        retries += 1
+                
                 
             else:
                 retries2 = 1
