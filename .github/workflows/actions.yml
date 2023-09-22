@@ -46,6 +46,7 @@ jobs:
   copydescriptions:
     runs-on: self-hosted
     needs: copyassignments
+    timeout-minutes: 30
 
     steps:
       - name: checkout repo content
@@ -70,6 +71,7 @@ jobs:
   copygrades:
     runs-on: self-hosted
     needs: [copyassignments, copydescriptions]
+    timeout-minutes: 30
 
     steps:
       - name: checkout repo content
