@@ -99,26 +99,39 @@ for i in range(len(editedNameList)):
         editedNameList[len(editedNameList) - i - 1] = editedNameList[len(editedNameList) - i - 1] + " " + str(editedNameList.count(editedNameList[len(editedNameList) - i - 1]))
 
 # Read Notion data and save name field to list
-my_page = notion.databases.query(
-    **{
-        "database_id": "437cd227b8b946d485abdf2af1cbef3e",
-        "filter": {
-            "and": [
-            {"property": "Name",
-            "rich_text": {
-                    "contains": "",
-                    "is_not_empty": True
-                } },
-            {"property": "Due",
-            "date": {
-                "contains": "",
-                "is_not_empty": True
-            }
-            }
-            ]
-        }
+def database_query_all(self, databaseID: str) -> dict:
+    """Return the query of all the databases."""
+    data = self.databases.query(databaseID)
+    database_object = data['object']
+    has_more = data['has_more']
+    next_cursor = data['next_cursor']
+    while has_more == True:
+        data_while = self.databases.query(databaseID, start_cursor=next_cursor)
+        for row in data_while['results']:
+            data['results'].append(row)
+        has_more = data_while['has_more']
+        next_cursor = data_while['next_cursor']
+
+    new_database = {
+        "object": database_object,
+        "results": data["results"],
+        "next_cursor": next_cursor,
+        "has_more": has_more
     }
-).get("results")
+    return new_database
+
+retries2 = 1
+success2 = False
+while not success2:
+    try:
+        my_page = database_query_all(notion, "437cd227b8b946d485abdf2af1cbef3e").get("results")
+        success2 = True
+    except:
+        wait2 = retries2 * 30
+        print('Error! Waiting %s secs and re-trying...' % wait2)
+        time.sleep(wait2)
+        retries2 += 1
+
 
 for result in my_page:
     print(str(result['properties']['Name']['title'][0]['text']['content']))
