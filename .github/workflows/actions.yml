@@ -6,6 +6,8 @@ on:
       - main
   schedule:
     - cron: "*/15 * * * *"
+concurrency:
+  group: notion
 
 jobs:
   copyassignments:
