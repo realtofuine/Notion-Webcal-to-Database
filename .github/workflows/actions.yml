@@ -46,7 +46,7 @@ jobs:
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
       #     branch: main
   copydescriptions:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: copyassignments
     timeout-minutes: 30
 
