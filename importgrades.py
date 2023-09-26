@@ -208,20 +208,30 @@ for subject in classList:
                         }
                     }
                 )
-    my_page = notion.databases.update(
-    **{
-        "database_id": notionID,
-        "title": [
-            {
-                        "text": {
-                            "content": className + " - " + netGrade
-                        }
-            }
-        ]
-                
-            }
-
-)
+    retries2 = 1
+    success2 = False
+    while not success2:
+        try:
+            my_page = notion.databases.update(
+            **{
+                "database_id": notionID,
+                "title": [
+                    {
+                                "text": {
+                                    "content": className + " - " + netGrade
+                                }
+                    }
+                ]
+                        
+                    }
+            )
+            success2 = True
+        except:
+            wait2 = retries2 * 30
+            print('Error! Waiting %s secs and re-trying...' % wait2)
+            time.sleep(wait2)
+            retries2 += 1
+    
 
     print("done")
     driver.quit()
